@@ -59,10 +59,10 @@
 				}
 		}
 		if($error1 == '' && $error2 == '' && $error3 == '' && $error4 == '' && $error5 == '' && $error6 == '' && $error7 == '' && $error8 == '' && $err1 == '' && $err2 == '')
-			{
-				$username =  strtolower($name) . '.' . strtolower($surname);
-				$sql = "INSERT INTO ".$typeOfAccount."s"." (username, password, name, surname, email) VALUES ('".$username."', '".md5($psw)."', '".$name."', '".$surname."', '".$email."')";
-				$conn->query($sql);
-			}
+		{
+			$username =  strtolower($name) . '.' . strtolower($surname);
+			$sql = "INSERT INTO ".$typeOfAccount."s"." (username, password, name, surname, email) VALUES ('".$username."', '".md5($psw)."', '".$name."', '".$surname."', '".$email."')";
+			$conn->query($sql);
+		}
 	}
 ?>
