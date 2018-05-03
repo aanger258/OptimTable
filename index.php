@@ -26,12 +26,12 @@
   					<input class="form-control" type="text" name="username" placeholder="Enter username">
   					<?php 
   						if($error1 != '')
-  							echo "<p style='color:red'>".$error1."</p>" 
+  							echo $error1;
   					?>
   					<input class="form-control" type="password" name="password" placeholder="Enter password">
   					<?php 
   						if($error2 != '')
-  							echo "<p style='color:red'>".$error2."</p>";
+  							echo $error2;
   					?>
   					<div class="row">
   						<div class="col-md-2">
@@ -47,16 +47,16 @@
   					</div>
   					<?php 
   						if($error3 != '')
-  							echo "<p style='color:red'>".$error3."</p>" ;
+  							echo $error3;
   						if($error4 != '')
-  							echo "<p style='color:red'>".$error4."</p>";
+  							echo $error4;
   						if($success1 != '')
-  							echo "<p style='color:green'>".$success1."</p>";
+  							echo $success1;
   					?>
   					<button name="login" class="btn btn-primary">Login</button>
 
   					<p>If you don't have an account register here: </p>
-  					<button name="register" class="btn btn-primary">Register</button>
+  					<a class="btn btn-primary" href="register.php">Register</a>
   				</form>	
   			</div>
   			<div class="col-md-4">		
