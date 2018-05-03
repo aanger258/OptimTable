@@ -74,14 +74,15 @@
   					<input class="form-control" type="text" name="profil" placeholder="Specify the group specialization">
   					<?php 
   						if($error2 != '')
-  							echo "<p style='color:red'>".$error2."</p>";
+  							echo $error2;
   					?>
   					<?php 
   						if($error3 != '')
-  							echo "<p style='color:red'>".$error3."</p>" ;
+  							echo $error3;
   						if($success1 != '')
-  							echo "<p style='color:green'>".$success1."</p>";
+  							echo $success1;
   					?>
+            <br>
   					<button name="insertgroup" class="btn btn-primary">Insert</button>
 
   				</form>	
@@ -91,8 +92,8 @@
   		</div>
 
   		<div class="row">
-			<div class="col-md-4">		
-  			</div>
+        <div class="col-md-4">		
+  		  </div>
   			<div class="col-md-4">
 
   			</div>

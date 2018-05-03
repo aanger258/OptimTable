@@ -42,10 +42,23 @@
 	  						if($error3 != '')
 	  							echo $error3; 
   						?>
+
+  						<div class="row">
+				  			<div class="col-md-2">
+				  			</div>
+					  		<div class="col-md-8">
+					  			<label for="typeOfAccount"><b>Choose you type of account:</b></label>
+						  	</div>
+						  	<div class="col-md-2">
+						  		
+					  		</div>
+				  		</div>
+					
 						<div class="row">
 				  			<div class="col-md-2">
 				  			</div>
 					  		<div class="col-md-4">
+
 						  		<input class="form-check-input" type="radio" name="typeOfAccount" id="student" value="student">
 						  		<label class="form-check-label" for="student">Student</label>
 						  	</div>

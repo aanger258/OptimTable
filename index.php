@@ -56,9 +56,9 @@
     						if($success1 != '')
     							echo $success1;
     					?>
-              <hr>
+              <p></p>
     					<button name="login" class="btn btn-primary">Login</button>
-
+              <hr>
     					<p>If you don't have an account register here: </p>
     					<a class="btn btn-primary" href="register.php">Register</a>
     				</form>
