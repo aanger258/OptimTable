@@ -1,4 +1,5 @@
 <?php
+	$success1 = $error1 = $error2 = $error3 = $error4 = '';
 	require 'connection.php';
 	if(isset($_POST['login'])){
 		$username = $conn->real_escape_string($_POST['username']);
