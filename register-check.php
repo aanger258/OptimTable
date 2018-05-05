@@ -1,6 +1,6 @@
 <?php
 	require("connection.php");
-	$error1 = $error2 = $error3 = $error4 = $error5 = $error6 = $error7 = $error8 = $error9 = $err1  = $err2 = '';
+	$error1 = $error2 = $error3 = $error4 = $error5 = $error6 = $error7 = $error8 = $error9 = $err1  = $err2 = $error10 = '';
 	if(isset($_POST["register"]))
 	{
 		$name = $conn->real_escape_string($_POST["name"]);
@@ -8,6 +8,7 @@
 		$psw = $conn->real_escape_string($_POST["psw"]);
 		$psw_repeat = $conn->real_escape_string($_POST["psw-repeat"]);
 		$email = $conn->real_escape_string($_POST["email"]);
+		$group = $conn->real_escape_string($_POST["group"]);
 		if(!empty($_POST['typeOfAccount']))
 			$typeOfAccount = $conn->real_escape_string($_POST['typeOfAccount']);
 		if(empty($_POST["email"])){
@@ -58,11 +59,16 @@
 						$err1='<font color="red">*This email already in use</font><br>';
 				}
 		}
-		if($error1 == '' && $error2 == '' && $error3 == '' && $error4 == '' && $error5 == '' && $error6 == '' && $error7 == '' && $error8 == '' && $err1 == '' && $err2 == '')
+		if(empty($_POST["group"]))
+		{
+			$error10 = '<font color="red">*Please choose a group!</font><br>';
+		}
+		if($error1 == '' && $error2 == '' && $error3 == '' && $error4 == '' && $error5 == '' && $error6 == '' && $error7 == '' && $error8 == '' && $err1 == '' && $err2 == '' && $error10  == '')
 		{
 			$username =  strtolower($name) . '.' . strtolower($surname);
-			$sql = "INSERT INTO ".$typeOfAccount."s"." (username, password, name, surname, email) VALUES ('".$username."', '".md5($psw)."', '".$name."', '".$surname."', '".$email."')";
+			$sql = "INSERT INTO ".$typeOfAccount."s"." (username, password, name, surname, email, group_name) VALUES ('".$username."', '".md5($psw)."', '".$name."', '".$surname."', '".$email."', '".$group."')";
 			$conn->query($sql);
 		}
+
 	}
 ?>

@@ -71,6 +71,26 @@
 	  						if($error4 != '')
 	  							echo $error4;
   						?>
+  						<label for="group"><b>Select your group:</b></label> <br>
+  						<select name='group'>
+  							<option value="">Choose!</option>
+  						<?php
+  							$sql ="SELECT * FROM groups";
+  							echo $sql;
+  							$result = $conn->query($sql);
+  							
+  							while($row = $result -> fetch_assoc())
+  							{
+  								echo "<option value='" . $row['id'] . "'>" . $row['groupName'] . "</option>";
+  							}
+  						?>
+  						</select>
+ 						<br>
+  						<?php 
+	  						if($error10 != '')
+	  							echo $error10;
+  						?>
+
 						<label for="psw"><b>Password</b></label>
 						<input class="form-control"  type="password" placeholder="Enter Password" name="psw">
 						<?php 

@@ -30,6 +30,8 @@
 				}
 		}
 	}
+
+
 ?>
 
 <!doctype html>
@@ -48,6 +50,48 @@
 
   	<body>
   		<div class="container">
+        <div class="row">
+
+          <div class="col-md-2">    
+          </div>
+          <div class="col-md-8">
+            <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Specialization</th>
+                </tr>
+              </thead>
+              <tbody>
+              <?php 
+                $cnt=1;
+                $p = "";
+                $n = "";
+                $sql = "SELECT * FROM groups";
+                $result = $conn -> query($sql);
+                while($row = $result -> fetch_assoc()):?>
+                    <tr>
+                      <th scope="row"><?php echo $cnt++; ?></th>
+                      <th id="name<?php echo $row["id"];?>"><?php echo $row["groupName"];?></th>
+                      <th id="specialization<?php echo $row["id"];?>"><?php echo $row["specialization"]; ?></th>
+                      <th><a href="program_ter.php?ceva=<?php echo $row["id"];?>">Show therapist's program</a></th>
+                    </tr>
+                <?php endwhile;?>
+              <tbody>
+            </table>
+            </form>
+
+
+
+          </div>
+          <div class="col-md-2">    
+          </div>
+        </div>
+
+
+
   		<div class="row">
 			<div class="col-md-2">		
   			</div>
