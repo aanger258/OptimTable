@@ -62,6 +62,8 @@
                   <th>#</th>
                   <th>Name</th>
                   <th>Specialization</th>
+                  <th >Action</th>
+                  <th >Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -76,7 +78,8 @@
                       <th scope="row"><?php echo $cnt++; ?></th>
                       <th id="name<?php echo $row["id"];?>"><?php echo $row["groupName"];?></th>
                       <th id="specialization<?php echo $row["id"];?>"><?php echo $row["specialization"]; ?></th>
-                      <th><a href="program_ter.php?ceva=<?php echo $row["id"];?>">Show therapist's program</a></th>
+                      <th ><a href="students.php?id=<?php echo $row["id"] . "," . $row["groupName"] . "," . $row["specialization"] ;?>">Show students</a></th>
+                      <th ><a href="groupPrograma.php?id=<?php echo $row["id"] . "," . $row["groupName"] . "," . $row["specialization"] ;?>">Edit scheduele</a></th>
                     </tr>
                 <?php endwhile;?>
               <tbody>
@@ -96,6 +99,7 @@
 			<div class="col-md-2">		
   			</div>
   			<div class="col-md-8">
+          <br>
   				<h3 style="text-align:center;"> Informations needed for a new OptimTable</h3>	
   			</div>
   			<div class="col-md-2">		
