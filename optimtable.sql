@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 06, 2018 at 05:58 PM
+-- Generation Time: May 06, 2018 at 09:51 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.4
 
@@ -39,10 +39,11 @@ CREATE TABLE `groups` (
 --
 
 INSERT INTO `groups` (`id`, `groupName`, `specialization`) VALUES
-(7, '1211A', 1),
-(8, '1211B', 1),
-(9, '1212A', 2),
-(10, '1212B', 2);
+(1, '1211A', 1),
+(2, '1211B', 1),
+(3, '1212A', 2),
+(4, '1212B', 2),
+(5, '1214', 3);
 
 -- --------------------------------------------------------
 
@@ -167,7 +168,7 @@ ALTER TABLE `teachers`
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `specializations`
