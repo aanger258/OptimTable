@@ -211,8 +211,8 @@
                 <tr>
                   <th scope="row"><?php echo $cnt++; ?></th>
                   <th id="name<?php echo $row["id"];?>"><?php echo $row["specialization"];?></th>
-                  <th ><a href="students.php?id=<?php echo $row["id"] . "," . $row["groupName"] . "," . $row["specialization"] ;?>">Show groups</a></th>
-                  <th ><a href="groupPrograma.php?id=<?php echo $row["id"] . "," . $row["groupName"] . "," . $row["specialization"] ;?>">Edit standards</a></th>
+                  <th ><a href="grupeSpecializare.php?id=<?php echo $row["id"] . "," . $row["specialization"]; ?>">Show groups</a></th>
+                  <th ><a href="groupPrograma.php?id=<?php echo $row["id"] . "," . $row["specialization"] ;?>">Edit standards</a></th>
                 </tr>
             <?php endwhile;?>
           <tbody>
