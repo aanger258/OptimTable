@@ -76,7 +76,6 @@
   							<option value="">Choose!</option>
   						<?php
   							$sql ="SELECT * FROM groups";
-  							echo $sql;
   							$result = $conn->query($sql);
   							
   							while($row = $result -> fetch_assoc())
