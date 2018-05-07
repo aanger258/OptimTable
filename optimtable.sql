@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0
+-- version 4.7.7
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 06, 2018 at 09:51 PM
--- Server version: 10.1.31-MariaDB
--- PHP Version: 7.2.4
+-- Generation Time: 07 Mai 2018 la 18:51
+-- Versiune server: 10.1.30-MariaDB
+-- PHP Version: 7.2.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,11 +25,8 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `groups`
+-- Structura de tabel pentru tabelul `groups`
 --
-
-CREATE DATABASE optimtable;
-USE optimtable;
 
 CREATE TABLE `groups` (
   `id` int(11) NOT NULL,
@@ -38,7 +35,7 @@ CREATE TABLE `groups` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `groups`
+-- Salvarea datelor din tabel `groups`
 --
 
 INSERT INTO `groups` (`id`, `groupName`, `specialization`) VALUES
@@ -46,12 +43,13 @@ INSERT INTO `groups` (`id`, `groupName`, `specialization`) VALUES
 (2, '1211B', 1),
 (3, '1212A', 2),
 (4, '1212B', 2),
-(5, '1214', 3);
+(5, '1214', 3),
+(6, '1213', 4);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `specializations`
+-- Structura de tabel pentru tabelul `specializations`
 --
 
 CREATE TABLE `specializations` (
@@ -60,7 +58,7 @@ CREATE TABLE `specializations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `specializations`
+-- Salvarea datelor din tabel `specializations`
 --
 
 INSERT INTO `specializations` (`id`, `specialization`) VALUES
@@ -72,7 +70,29 @@ INSERT INTO `specializations` (`id`, `specialization`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `students`
+-- Structura de tabel pentru tabelul `standards`
+--
+
+CREATE TABLE `standards` (
+  `id` int(11) NOT NULL,
+  `specializationId` int(11) NOT NULL,
+  `subjectId` int(11) NOT NULL,
+  `hoursPerWeek` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Salvarea datelor din tabel `standards`
+--
+
+INSERT INTO `standards` (`id`, `specializationId`, `subjectId`, `hoursPerWeek`) VALUES
+(1, 1, 1, 4),
+(7, 1, 5, 7),
+(8, 1, 6, 6);
+
+-- --------------------------------------------------------
+
+--
+-- Structura de tabel pentru tabelul `students`
 --
 
 CREATE TABLE `students` (
@@ -86,7 +106,7 @@ CREATE TABLE `students` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `students`
+-- Salvarea datelor din tabel `students`
 --
 
 INSERT INTO `students` (`id`, `username`, `password`, `name`, `surname`, `group_name`, `email`) VALUES
@@ -98,7 +118,7 @@ INSERT INTO `students` (`id`, `username`, `password`, `name`, `surname`, `group_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `subjects`
+-- Structura de tabel pentru tabelul `subjects`
 --
 
 CREATE TABLE `subjects` (
@@ -106,10 +126,25 @@ CREATE TABLE `subjects` (
   `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Salvarea datelor din tabel `subjects`
+--
+
+INSERT INTO `subjects` (`id`, `name`) VALUES
+(1, 'Math'),
+(2, 'Chemistry'),
+(3, 'Data Structures and Algorithms'),
+(4, 'Computer Arhitecture'),
+(5, 'Introduction to Web Programming'),
+(6, 'Calculus'),
+(7, 'Physics'),
+(8, 'Mechanics'),
+(9, 'Collaborative Work');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `teachers`
+-- Structura de tabel pentru tabelul `teachers`
 --
 
 CREATE TABLE `teachers` (
@@ -123,11 +158,14 @@ CREATE TABLE `teachers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `teachers`
+-- Salvarea datelor din tabel `teachers`
 --
 
 INSERT INTO `teachers` (`id`, `username`, `password`, `name`, `surname`, `subject`, `email`) VALUES
-(1, 'teacher.1', '1234', '', '', 0, '');
+(1, 'teacher.1', '1234', 'Mircea', 'Olteanu', 6, ''),
+(2, 'vlad.posea', '', 'Vlad', 'Posea', 5, ''),
+(3, 'Bujor.Pavaloiu', '', 'Bujor', 'Pavaloiu', 4, ''),
+(4, 'dan.mitrea', '', 'Dan', 'Mitrea', 3, '');
 
 --
 -- Indexes for dumped tables
@@ -143,6 +181,12 @@ ALTER TABLE `groups`
 -- Indexes for table `specializations`
 --
 ALTER TABLE `specializations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `standards`
+--
+ALTER TABLE `standards`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -171,13 +215,19 @@ ALTER TABLE `teachers`
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `specializations`
 --
 ALTER TABLE `specializations`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `standards`
+--
+ALTER TABLE `standards`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `students`
@@ -189,13 +239,13 @@ ALTER TABLE `students`
 -- AUTO_INCREMENT for table `subjects`
 --
 ALTER TABLE `subjects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `teachers`
 --
 ALTER TABLE `teachers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
