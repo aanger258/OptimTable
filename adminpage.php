@@ -80,9 +80,7 @@
   		<div class="container">
         <div class="row">
 
-          <div class="col-md-2">    
-          </div>
-          <div class="col-md-8">
+          <div class="col-md-6">
             <h3 style="text-align:center;">Groups</h3>
             <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             <table class="table">
@@ -106,37 +104,57 @@
                       <th id="name<?php echo $row["idgrupa"];?>"><?php echo $row["groupName"];?></th>
                       <th id="specialization<?php echo $row["idgrupa"];?>"><?php echo $row["specialization"]; ?></th>
                       <th ><a href="students.php?id=<?php echo $row["idgrupa"] . "," . $row["groupName"] . "," . $row["specialization"] ;?>">Show students</a></th>
-                      <th ><a href="groupPrograma.php?id=<?php echo $row["idgrupa"] . "," . $row["groupName"] . "," . $row["specialization"] ;?>">Edit scheduele</a></th>
+                      <th ><a href="groupSchedule.php?id=<?php echo $row["idgrupa"] . "," . $row["groupName"] . "," . $row["specialization"] ;?>">Edit scheduele</a></th>
                     </tr>
                 <?php endwhile;?>
               <tbody>
             </table>
             </form>
-
-
-
           </div>
-          <div class="col-md-2">    
-          </div>
+          <div class="col-md-6">
+            <h3 style="text-align:center;"> Specializations </h3>  
+            <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Specialization</th>
+                  <th >Action</th>
+                  <th >Action</th>
+                </tr>
+              </thead>
+              <tbody>
+              <?php 
+                $cnt=1;
+                $sql = "SELECT * FROM specializations";
+                $result = $conn -> query($sql);
+                while($row = $result -> fetch_assoc()):?>
+                    <tr>
+                      <th scope="row"><?php echo $cnt++; ?></th>
+                      <th id="name<?php echo $row["id"];?>"><?php echo $row["specialization"];?></th>
+                      <th ><a href="groupSpecialization.php?id=<?php echo $row["id"] . "," . $row["specialization"]; ?>">Show groups</a></th>
+                      <th ><a href="specializationStandards.php?id=<?php echo $row["id"] . "," . $row["specialization"] ;?>">Edit standards</a></th>
+                    </tr>
+                <?php endwhile;?>
+              <tbody>
+            </table>
+            </form>
         </div>
-
+      </div>
 
 
   		<div class="row">
-			<div class="col-md-2">		
-  			</div>
-  			<div class="col-md-8">
+  			<div class="col-md-6">
           <br>
   				<h3 style="text-align:center;"> Insert new group </h3>	
   			</div>
-  			<div class="col-md-2">		
+  			<div class="col-md-6">
+          <h3 style="text-align:center;"> Insert new specialization </h3> 		
   			</div>
   		</div>
 
   		<div class="row">
-  			<div class="col-md-4">		
-  			</div>
-  			<div class="col-md-4">
+  			<div class="col-md-6">
   				<form method="POST"  class="form form-login">
 
   					<label for="group"><b>Insert group name</b></label>
@@ -174,75 +192,8 @@
   				</form>	
           <br>
   			</div>
-  			<div class="col-md-4">		
-  			</div>
-  		</div>
 
-  		<div class="row">
-        <div class="col-md-4">		
-  		  </div>
-  			<div class="col-md-4">
-
-  			</div>
-  			<div class="col-md-4">		
-  			</div>
-  		</div>
-
-    <div class="row">
-      <div class="col-md-2">    
-      </div>
-      <div class="col-md-8">
-        <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Specialization</th>
-              <th >Action</th>
-              <th >Action</th>
-            </tr>
-          </thead>
-          <tbody>
-          <?php 
-            $cnt=1;
-            $sql = "SELECT * FROM specializations";
-            $result = $conn -> query($sql);
-            while($row = $result -> fetch_assoc()):?>
-                <tr>
-                  <th scope="row"><?php echo $cnt++; ?></th>
-                  <th id="name<?php echo $row["id"];?>"><?php echo $row["specialization"];?></th>
-                  <th ><a href="grupeSpecializare.php?id=<?php echo $row["id"] . "," . $row["specialization"]; ?>">Show groups</a></th>
-                  <th ><a href="groupPrograma.php?id=<?php echo $row["id"] . "," . $row["specialization"] ;?>">Edit standards</a></th>
-                </tr>
-            <?php endwhile;?>
-          <tbody>
-        </table>
-        </form>
-
-
-
-      </div>
-      <div class="col-md-2">    
-      </div>
-    </div>
-
-
-
-      <div class="row">
-      <div class="col-md-2">    
-        </div>
-        <div class="col-md-8">
-          <br>
-          <h3 style="text-align:center;"> Insert new specialization </h3> 
-        </div>
-        <div class="col-md-2">    
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-4">    
-        </div>
-        <div class="col-md-4">
+  			<div class="col-md-6">
           <form method="POST"  class="form form-login">
 
             <label for="specialization"><b>Insert specialization name</b></label>
@@ -260,18 +211,10 @@
             <br>
             <button name="insertspecialization" class="btn btn-primary">Insert</button>
 
-          </form> 
-        </div>
-        <div class="col-md-4">    
-        </div>
-      </div>
-
+          </form> 		
+  			</div>
+  		</div>
     </div>
-
-
-
-
-
 
   	</body>
 </html>

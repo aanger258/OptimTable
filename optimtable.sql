@@ -28,6 +28,9 @@ SET time_zone = "+00:00";
 -- Table structure for table `groups`
 --
 
+CREATE DATABASE optimtable;
+USE optimtable;
+
 CREATE TABLE `groups` (
   `id` int(11) NOT NULL,
   `groupName` varchar(255) NOT NULL,
