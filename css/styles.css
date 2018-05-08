@@ -1,3 +1,13 @@
 .form-login{
 	text-align: center;
+
+}
+table, td,tr 
+{
+	border: 1px solid black;
+	padding: 5px;
+	text-align: center;
+	border-collapse: collapse;
+	font-size: 20px;
+	cursor: pointer;
 }

@@ -1,71 +1,90 @@
-<?php
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+
+    	<style>
+		table,
+		td,
+		tr {
+			border: 1px solid black;
+			padding: 5px;
+			text-align: center;
+			border-collapse: collapse;
+			font-size: 18px;
+			cursor: pointer;
+		}
+	</style>
+ </html>
+ <?php
 	require ("connection.php");
 	$weekTeacher =array(
 		array(
-			array("","","","","","","","",""),
-			array("","","","","","","","",""),
-			array("","","","","","","","",""),
-			array("","","","","","","","",""),
-			array("","","","","","","","",""),
-			array("","","","","","","","","")
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","","")
 		),
 		array(
-			array("","","","","","","","",""),
-			array("","","","","","","","",""),
-			array("","","","","","","","",""),
-			array("","","","","","","","",""),
-			array("","","","","","","","",""),
-			array("","","","","","","","","")
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","","")
 		),
 		array(
-			array("","","","","","","","",""),
-			array("","","","","","","","",""),
-			array("","","","","","","","",""),
-			array("","","","","","","","",""),
-			array("","","","","","","","",""),
-			array("","","","","","","","","")
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","","")
 		),
 		array(
-			array("","","","","","","","",""),
-			array("","","","","","","","",""),
-			array("","","","","","","","",""),
-			array("","","","","","","","",""),
-			array("","","","","","","","",""),
-			array("","","","","","","","","")
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","","")
 		),
 		array(
-			array("","","","","","","","",""),
-			array("","","","","","","","",""),
-			array("","","","","","","","",""),
-			array("","","","","","","","",""),
-			array("","","","","","","","",""),
-			array("","","","","","","","","")
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","","")
 		),
 		array(
-			array("","","","","","","","",""),
-			array("","","","","","","","",""),
-			array("","","","","","","","",""),
-			array("","","","","","","","",""),
-			array("","","","","","","","",""),
-			array("","","","","","","","","")
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","","")
 		)
 	);
 	$weekGroup =array(
 		array(
-			array("","","","","","","","",""),
-			array("","","","","","","","",""),
-			array("","","","","","","","",""),
-			array("","","","","","","","",""),
-			array("","","","","","","","",""),
-			array("","","","","","","","","")
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","","")
 		),
 		array(
-			array("","","","","","","","",""),
-			array("","","","","","","","",""),
-			array("","","","","","","","",""),
-			array("","","","","","","","",""),
-			array("","","","","","","","",""),
-			array("","","","","","","","","")
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","",""),
+			array("","","","","","","","","","","","")
 		)
 	);
 
@@ -94,9 +113,9 @@
 					$x=$rowStd["hoursPerWeek"];
 					if($rowStd["hoursPerWeek"]==2 )
 					{		
-
-						for($i=1; $i<=5; $i++)
-							for($j=1; $j<=7; $j++)
+						$done = false;
+						for($i=1; $i<=5 && $done==false; $i++)
+							for($j=1; $j<=7 && $done==false; $j++)
 								if(empty($weekTeacher[$rowTch["id"]][$i][$j]) && empty($weekTeacher[$rowTch["id"]][$i][$j+1]))
 								{
 									$sqlGroup = "SELECT * FROM groups WHERE specialization = ".$rowSpec["id"]."";
@@ -108,25 +127,50 @@
 										if(!(empty($weekGroup[$rowGroup["id"]][$i][$j]) && empty($weekGroup[$rowGroup["id"]][$i][$j+1])))
 										{
 											$liberLaToateGrupele=false;
-						
 										}
+										if(!empty($weekGroup[$rowGroup["id"]][$i][11]) && $weekGroup[$rowGroup["id"]][$i][11]>1)
+											$liberLaToateGrupele=false;
 									}
+
+									if($liberLaToateGrupele==true)
+									{
+										$resultGroup = $conn->query($sqlGroup);
+										while($rowGroup = $resultGroup -> fetch_assoc())
+										{
+											if(empty($weekGroup[$rowGroup["id"]][$i][11]))
+												$weekGroup[$rowGroup["id"]][$i][11]=1;
+											else
+												$weekGroup[$rowGroup["id"]][$i][11]++;
+										}
+									}	
+
 									$sqlGroup = "SELECT * FROM groups WHERE specialization = ".$rowSpec["id"]."";
 									$resultGroup = $conn->query($sqlGroup);
 									while($rowGroup = $resultGroup -> fetch_assoc())
 									if($liberLaToateGrupele==true && $x>0)
 									{
-										$weekTeacher[$rowTch["id"]][$i][$j] = $rowGroup["groupName"] . ",";
-										$weekTeacher[$rowTch["id"]][$i][$j+1] = $rowGroup["groupName"] . ",";
-										$weekGroup[$rowGroup["id"]][$i][$j] = $rowSubj["name"] . ",";
-										$weekGroup[$rowGroup["id"]][$i][$j+1] = $rowSubj["name"] . ",";
+										if(empty($weekTeacher[$rowTch["id"]][$i][$j]))
+											$weekTeacher[$rowTch["id"]][$i][$j] = $rowGroup["groupName"];
+										else
+											$weekTeacher[$rowTch["id"]][$i][$j] .= ", " . $rowGroup["groupName"] ;
+										if(empty($weekTeacher[$rowTch["id"]][$i][$j+1]))
+											$weekTeacher[$rowTch["id"]][$i][$j+1] = $rowGroup["groupName"];
+										else
+											$weekTeacher[$rowTch["id"]][$i][$j+1] .= ", " . $rowGroup["groupName"] ;
+
+										$weekGroup[$rowGroup["id"]][$i][$j] = $rowSubj["name"];
+										$weekGroup[$rowGroup["id"]][$i][$j+1] = $rowSubj["name"];
+										$done=true;
 										$x--;
 									}
+
 								}
 					}
 					else
-						for($i=1; $i<=5; $i++)
-							for($j=1; $j<=6; $j++)
+					{
+						$done = false;
+						for($i=1; $i<=5 && $done==false; $i++)
+							for($j=1; $j<=6 && $done==false; $j++)
 								if(empty($weekTeacher[$rowTch["id"]][$i][$j]) && empty($weekTeacher[$rowTch["id"]][$i][$j+1]) && empty($weekTeacher[$rowTch["id"]][$i][$j+2]))
 								{
 									$sqlGroup = "SELECT * FROM groups WHERE specialization = ".$rowSpec["id"]."";
@@ -138,55 +182,50 @@
 										if(!(empty($weekGroup[$rowGroup["id"]][$i][$j]) && empty($weekGroup[$rowGroup["id"]][$i][$j+1]) && empty($weekGroup[$rowGroup["id"]][$i][$j+2])))
 										{ 	
 											$liberLaToateGrupele=false;
-						
+										}
+										if(!empty($weekGroup[$rowGroup["id"]][$i][11]) && $weekGroup[$rowGroup["id"]][$i][11]>1)
+											$liberLaToateGrupele=false;
+									}
+
+
+									if($liberLaToateGrupele==true)
+									{
+										$resultGroup = $conn->query($sqlGroup);
+										while($rowGroup = $resultGroup -> fetch_assoc())
+										{
+											if(empty($weekGroup[$rowGroup["id"]][$i][11]))
+												$weekGroup[$rowGroup["id"]][$i][11]=1;
+											else
+												$weekGroup[$rowGroup["id"]][$i][11]++;
 										}
 									}
+
 									$resultGroup = $conn->query($sqlGroup);
 									while($rowGroup = $resultGroup -> fetch_assoc())
 									if($liberLaToateGrupele==true && $x>0)
 									{
-										var_dump($sqlGroup);
-										$weekTeacher[$rowTch["id"]][$i][$j] = $rowGroup["groupName"] . ",";
-										$weekTeacher[$rowTch["id"]][$i][$j+1] = $rowGroup["groupName"] . ",";
-										$weekTeacher[$rowTch["id"]][$i][$j+2] = $rowGroup["groupName"] . ",";
-										$weekGroup[$rowGroup["id"]][$i][$j] = $rowSubj["name"] . ",";
-										$weekGroup[$rowGroup["id"]][$i][$j+1] = $rowSubj["name"] . ",";
-										$weekGroup[$rowGroup["id"]][$i][$j+2] = $rowSubj["name"] . ",";
-										$x-=2;
-										
-	/*for($i=1; $i<=6; $i++)
-	{
-		echo "schedule for teacher with id " . $i . "<br>";
-		for($j=1; $j<=5; $j++)
-		{
-			for($k=1; $k<=8; $k++)
-				if(!empty($weekTeacher[$i][$j][$k]))
-					echo $weekTeacher[$i][$j][$k] . " ";
-				else
-					echo "fereastra ";
-			echo "<br>";
-		}
-		echo "<br>";
-		echo "<br>";		
-	}
+										if(empty($weekTeacher[$rowTch["id"]][$i][$j]))
+											$weekTeacher[$rowTch["id"]][$i][$j] = $rowGroup["groupName"];
+										else
+											$weekTeacher[$rowTch["id"]][$i][$j] .= ", " . $rowGroup["groupName"];
+										if(empty($weekTeacher[$rowTch["id"]][$i][$j+1]))
+											$weekTeacher[$rowTch["id"]][$i][$j+1] = $rowGroup["groupName"];
+										else
+											$weekTeacher[$rowTch["id"]][$i][$j+1] .= ", " . $rowGroup["groupName"];
+										if(empty($weekTeacher[$rowTch["id"]][$i][$j+2]))
+											$weekTeacher[$rowTch["id"]][$i][$j+2] = $rowGroup["groupName"];
+										else
+											$weekTeacher[$rowTch["id"]][$i][$j+2] .= ", " . $rowGroup["groupName"];
 
-	for($i=1; $i<=2; $i++)
-	{
-		for($j=1; $j<=5; $j++)
-		{
-			for($k=1; $k<=8; $k++)
-				if(!empty($weekGroup[$i][$j][$k]))
-					echo $weekGroup[$i][$j][$k] . " ";
-				else
-					echo "fereastra ";
-			echo "<br>";
-		}
-		echo "<br>";
-		echo "<br>";		
-	}*/
+										$weekGroup[$rowGroup["id"]][$i][$j] = $rowSubj["name"] ;
+										$weekGroup[$rowGroup["id"]][$i][$j+1] = $rowSubj["name"] ;
+										$weekGroup[$rowGroup["id"]][$i][$j+2] = $rowSubj["name"] ;
+										$done=true;
+										$x-=2;
 									}
 
 								}
+					}
 
 				}
 			}
@@ -227,6 +266,10 @@
 					$table .= "<td>" . "fereastra" . "</td>";
 			echo "<br>";
 			$table .= "</tr>";
+			if(empty($weekGroup[$i][$j][11]))
+				echo 0;
+			else
+				echo $weekGroup[$i][$j][11];
 		}
 		$table .= "</table>";
 		echo $table;
