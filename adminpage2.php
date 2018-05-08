@@ -80,7 +80,7 @@
 
 	    <title>OptimTable</title>
   	</head>
-
+    <?php include "navbar.php" ?>
   	<body>
   		<div class="container">
         <div class="row">
