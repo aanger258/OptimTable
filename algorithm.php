@@ -152,9 +152,9 @@
 										$weekGroup[$rowGroup["id"]][$i][$j] = $rowSubj["name"] . ",";
 										$weekGroup[$rowGroup["id"]][$i][$j+1] = $rowSubj["name"] . ",";
 										$weekGroup[$rowGroup["id"]][$i][$j+2] = $rowSubj["name"] . ",";
-										$x--;
+										$x-=2;
 										
-	for($i=1; $i<=6; $i++)
+	/*for($i=1; $i<=6; $i++)
 	{
 		echo "schedule for teacher with id " . $i . "<br>";
 		for($j=1; $j<=5; $j++)
@@ -183,7 +183,7 @@
 		}
 		echo "<br>";
 		echo "<br>";		
-	}
+	}*/
 									}
 
 								}
@@ -196,31 +196,40 @@
 
 	for($i=1; $i<=6; $i++)
 	{
+		$table = "<table>";
 		echo "schedule for teacher with id " . $i . "<br>";
 		for($j=1; $j<=5; $j++)
 		{
+			$table .= "<tr>";
 			for($k=1; $k<=8; $k++)
 				if(!empty($weekTeacher[$i][$j][$k]))
-					echo $weekTeacher[$i][$j][$k] . " ";
+					$table .= "<td>" . $weekTeacher[$i][$j][$k] . "</td>";
 				else
-					echo "fereastra ";
-			echo "<br>";
+					$table .= "<td>" . "fereastra" . "</td>";
+			$table .= "</tr>";
 		}
+		$table .= "</table>";
+		echo $table;
 		echo "<br>";
 		echo "<br>";		
 	}
 
 	for($i=1; $i<=2; $i++)
 	{
+		$table = "<table>";
 		for($j=1; $j<=5; $j++)
 		{
+			$table .= "<tr>";
 			for($k=1; $k<=8; $k++)
 				if(!empty($weekGroup[$i][$j][$k]))
-					echo $weekGroup[$i][$j][$k] . " ";
+					$table .= "<td>" . $weekGroup[$i][$j][$k] . "</td>";
 				else
-					echo "fereastra ";
+					$table .= "<td>" . "fereastra" . "</td>";
 			echo "<br>";
+			$table .= "</tr>";
 		}
+		$table .= "</table>";
+		echo $table;
 		echo "<br>";
 		echo "<br>";		
 	}
