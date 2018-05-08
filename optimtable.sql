@@ -20,6 +20,9 @@ SET time_zone = "+00:00";
 
 --
 -- Database: `optimtable`
+
+CREATE DATABASE optimtable;
+USE optimtable;
 --
 
 -- --------------------------------------------------------
