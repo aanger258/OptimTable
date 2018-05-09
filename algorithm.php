@@ -439,7 +439,47 @@
 			}
 		}
 	}
+	$sql = "SELECT * FROM groups";
+	$result = $conn->query($sql);
+	$numberOfGroups = $result->num_rows;
 
+	$sql = "SELECT * FROM teachers";
+	$result = $conn->query($sql);
+	$numberOfTeachers = $result->num_rows;
+	$table="";
+	for($i=1; $i<=$numberOfGroups; $i++)
+	{
+		for($j=1; $j<=5; $j++)
+		{
+			$table .= "<tr>";
+			for($k=1; $k<=10; $k++){
+				$x=$k+7;
+				if(!empty($weekGroup[$i][$j][$k]))
+					$sqlInsert="INSERT INTO schedulegroups (groupName, day, startHour, info) VALUES ('".$i."', '".$j."', '".$x."', '".$weekGroup[$i][$j][$k]."')";
+				else
+					$sqlInsert="INSERT INTO schedulegroups (groupName, day, startHour, info) VALUES ('".$i."', '".$j."', '".$x."', 'free')";
+				//var_dump($sqlInsert);
+				$conn->query($sqlInsert);
+			}
+		}	
+	}
+
+	for($i=1; $i<=$numberOfTeachers; $i++)
+	{
+		for($j=1; $j<=5; $j++)
+		{
+			$table .= "<tr>";
+			for($k=1; $k<=10; $k++){
+				$x=$k+7;
+				if(!empty($weekTeacher[$i][$j][$k]))
+					$sqlInsert="INSERT INTO scheduleteachers (idTeacher, day, startHour, info) VALUES ('".$i."', '".$j."', '".$x."', '".$weekTeacher[$i][$j][$k]."')";
+				else
+					$sqlInsert="INSERT INTO scheduleteachers (idTeacher, day, startHour, info) VALUES ('".$i."', '".$j."', '".$x."', 'free')";
+				var_dump($sqlInsert);
+				$conn->query($sqlInsert);
+			}
+		}	
+	}
 
 	for($i=1; $i<=6; $i++)
 	{
@@ -460,24 +500,6 @@
 		echo "<br>";
 		echo "<br>";		
 	}
-
-	for($i=1; $i<=4; $i++)
-	{
-		for($j=1; $j<=5; $j++)
-		{
-			$table .= "<tr>";
-			for($k=1; $k<=10; $k++){
-				$x=$k+7;
-				if(!empty($weekGroup[$i][$j][$k]))
-					$sqlInsert="INSERT INTO schedule (groupName, day, startHour, info) VALUES ('".$i."', '".$j."', '".$x."', '".$weekGroup[$i][$j][$k]."')";
-				else
-					$sqlInsert="INSERT INTO schedule (groupName, day, startHour, info) VALUES ('".$i."', '".$j."', '".$x."', 'free')";
-				var_dump($sqlInsert);
-				$conn->query($sqlInsert);
-			}
-		}	
-	}
-
 
 	for($i=1; $i<=4; $i++)
 	{
@@ -507,5 +529,4 @@
 		echo "<br>";
 		echo "<br>";		
 	}
-
 ?>
