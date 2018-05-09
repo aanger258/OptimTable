@@ -161,8 +161,8 @@
 										$sqlTchInfo = "SELECT * FROM teachers WHERE id = ".$rowTch["teacherId"]."";
 										$resultTchInfo = $conn->query($sqlTchInfo);
 										if($rowTchInfo = $resultTchInfo -> fetch_assoc()){
-											$weekGroup[$rowGroup["id"]][$i][$j] = $rowSubj["name"] . "<br>Course" . "<br>" . $rowTchInfo["name"]." " . $rowTchInfo["surname"];
-											$weekGroup[$rowGroup["id"]][$i][$j+1] = $rowSubj["name"] . "<br>Course" . "<br>" . $rowTchInfo["name"]." " . $rowTchInfo["surname"];
+											$weekGroup[$rowGroup["id"]][$i][$j] = $rowSubj["name"] . ",Course," .  $rowTchInfo["name"]." " . $rowTchInfo["surname"];
+											$weekGroup[$rowGroup["id"]][$i][$j+1] = $rowSubj["name"] . ",Course," .  $rowTchInfo["name"]." " . $rowTchInfo["surname"];
 										}
 										$done=true;
 									}
@@ -231,9 +231,9 @@
 										$sqlTchInfo = "SELECT * FROM teachers WHERE id = ".$rowTch["teacherId"]."";
 										$resultTchInfo = $conn->query($sqlTchInfo);
 										if($rowTchInfo = $resultTchInfo -> fetch_assoc()){
-											$weekGroup[$rowGroup["id"]][$i][$j] = $rowSubj["name"] . "<br>Course" . "<br>" . $rowTchInfo["name"]." " . $rowTchInfo["surname"];
-											$weekGroup[$rowGroup["id"]][$i][$j+1] = $rowSubj["name"] . "<br>Course" . "<br>" . $rowTchInfo["name"]." " . $rowTchInfo["surname"];
-											$weekGroup[$rowGroup["id"]][$i][$j+2] = $rowSubj["name"] . "<br>Course" . "<br>" . $rowTchInfo["name"]." " . $rowTchInfo["surname"];
+											$weekGroup[$rowGroup["id"]][$i][$j] = $rowSubj["name"] . ",Course," .  $rowTchInfo["name"]." " . $rowTchInfo["surname"];
+											$weekGroup[$rowGroup["id"]][$i][$j+1] = $rowSubj["name"] . ",Course," .  $rowTchInfo["name"]." " . $rowTchInfo["surname"];
+											$weekGroup[$rowGroup["id"]][$i][$j+2] = $rowSubj["name"] . ",Course," .  $rowTchInfo["name"]." " . $rowTchInfo["surname"];
 										}
 										$done=true;
 										
@@ -295,7 +295,7 @@
 										$sqlTchInfo = "SELECT * FROM teachers WHERE id = ".$rowTch["teacherId"]."";
 										$resultTchInfo = $conn->query($sqlTchInfo);
 										if($rowTchInfo = $resultTchInfo -> fetch_assoc()){
-											$weekGroup[$rowGroup["id"]][$i][$j] = $rowSubj["name"] . "<br>Course" . "<br>" . $rowTchInfo["name"]." " . $rowTchInfo["surname"];
+											$weekGroup[$rowGroup["id"]][$i][$j] = $rowSubj["name"]. ",Course," .  $rowTchInfo["name"] . " " . $rowTchInfo["surname"];
 										}
 										$done=true;
 									}
@@ -371,13 +371,13 @@
 										$resultTchInfo = $conn->query($sqlTchInfo);
 										if($rowTchInfo = $resultTchInfo -> fetch_assoc()){
 											if($rowSubj["type"]==2){
-												$weekGroup[$rowGroup["id"]][$i][$j] = $rowSubj["name"] . "<br>Seminar" . "<br>" . $rowTchInfo["name"]." " . $rowTchInfo["surname"];
-												$weekGroup[$rowGroup["id"]][$i][$j+1] = $rowSubj["name"] . "<br>Seminar" . "<br>" . $rowTchInfo["name"]." " . $rowTchInfo["surname"];
+												$weekGroup[$rowGroup["id"]][$i][$j] = $rowSubj["name"] . ",Seminar," .  $rowTchInfo["name"]." " . $rowTchInfo["surname"];
+												$weekGroup[$rowGroup["id"]][$i][$j+1] = $rowSubj["name"] . ",Seminar," .  $rowTchInfo["name"]." " . $rowTchInfo["surname"];
 											}
 											else
 											if($rowSubj["type"]==3){
-												$weekGroup[$rowGroup["id"]][$i][$j] = $rowSubj["name"] . "<br>Laboratory" . "<br>" . $rowTchInfo["name"]." " . $rowTchInfo["surname"];
-												$weekGroup[$rowGroup["id"]][$i][$j+1] = $rowSubj["name"] . "<br>Laboratory" . "<br>" . $rowTchInfo["name"]." " . $rowTchInfo["surname"];
+												$weekGroup[$rowGroup["id"]][$i][$j] = $rowSubj["name"] . ",Laboratory," . $rowTchInfo["name"]." " . $rowTchInfo["surname"];
+												$weekGroup[$rowGroup["id"]][$i][$j+1] = $rowSubj["name"] . ",Laboratory," .  $rowTchInfo["name"]." " . $rowTchInfo["surname"];
 											}
 										}
 									}
@@ -423,11 +423,11 @@
 										$resultTchInfo = $conn->query($sqlTchInfo);
 										if($rowTchInfo = $resultTchInfo -> fetch_assoc()){
 											if($rowSubj["type"]==2){
-												$weekGroup[$rowGroup["id"]][$i][$j] = $rowSubj["name"] . "<br>Seminar" . "<br>" . $rowTchInfo["name"]." " . $rowTchInfo["surname"];
+												$weekGroup[$rowGroup["id"]][$i][$j] = $rowSubj["name"] . ",Seminar," . $rowTchInfo["name"] . $rowTchInfo["surname"];
 											}
 											else
 											if($rowSubj["type"]==3){
-												$weekGroup[$rowGroup["id"]][$i][$j] = $rowSubj["name"] . "<br>Laboratory" . "<br>" . $rowTchInfo["name"]." " . $rowTchInfo["surname"];
+												$weekGroup[$rowGroup["id"]][$i][$j] = $rowSubj["name"] . ",Laboratory," . $rowTchInfo["name"]." " . $rowTchInfo["surname"];
 											}
 										}
 									}
@@ -461,18 +461,20 @@
 		echo "<br>";		
 	}
 
-	for($i=1; $i<=6; $i++)
+	for($i=1; $i<=4; $i++)
 	{
 		for($j=1; $j<=5; $j++)
 		{
 			$table .= "<tr>";
-			for($k=1; $k<=10; $k++)
-				$x=$k+8;
+			for($k=1; $k<=10; $k++){
+				$x=$k+7;
 				if(!empty($weekGroup[$i][$j][$k]))
-					$sql="INSERT INTO schedule (groupName, day, startHour, info) VALUES (`".$i."`, `".$j."`, `".$x."`, `".$weekGroup[$i][$j][$k]."`)";
+					$sqlInsert="INSERT INTO schedule (groupName, day, startHour, info) VALUES ('".$i."', '".$j."', '".$x."', '".$weekGroup[$i][$j][$k]."')";
 				else
-					$sql="INSERT INTO schedule (groupName, day, startHour, info) VALUES ('".$i."', '".$j."', '".$x."', 'free')";
-				$conn->query($sql);
+					$sqlInsert="INSERT INTO schedule (groupName, day, startHour, info) VALUES ('".$i."', '".$j."', '".$x."', 'free')";
+				var_dump($sqlInsert);
+				$conn->query($sqlInsert);
+			}
 		}	
 	}
 
