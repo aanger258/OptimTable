@@ -39,14 +39,18 @@
     					<div class="row">
     						<div class="col-md-2">
     						</div>
-  	  					<div class="col-md-4">
+  	  					<div class="col-md-3">
   		  					<input class="form-check-input" type="radio" name="typeOfAccount" id="student" value="student">
   		  					<label class="form-check-label" for="student">Student</label>
   		  				</div>
-  		  				<div class="col-md-4">
+  		  				<div class="col-md-3">
   		  					<input class="form-check-input" type="radio" name="typeOfAccount" id="teacher" value="teacher">
   		  					<label class="form-check-label" for="teacher">Teacher</label>
   	  					</div>
+                <div class="col-md-3">
+                  <input class="form-check-input" type="radio" name="typeOfAccount" id="admin" value="admin">
+                  <label class="form-check-label" for="admin">Admin</label>
+                </div>
     					</div>
     					<?php 
     						if($error3 != '')

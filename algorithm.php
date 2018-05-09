@@ -306,8 +306,6 @@
 
 		}
 	}
-	
-
 	//seminars and laboratories
 	$sqlSpec = "SELECT * FROM specializations";
 	$resultSpec = $conn->query($sqlSpec);
@@ -326,8 +324,7 @@
 				while($rowTch = $resultTch -> fetch_assoc())
 				{
 					//alegem un  interval orar care e liber si pt prof si pt toate grupele
-					$x=$rowStd["hoursPerWeek"];	
-					
+					$x=$rowStd["hoursPerWeek"];
 					if($x==2)
 					{
 						$sqlGroup = "SELECT * FROM groups WHERE specialization = ".$rowSpec["id"]."";
@@ -391,61 +388,62 @@
 						$resultGroup = $conn->query($sqlGroup);
 						while($rowGroup = $resultGroup -> fetch_assoc()){
 							$done = false;
-						for($i=1; $i<=5 && $done==false; $i++)
-							for($j=1; $j<=11 && $done==false; $j++)
-								if(empty($weekTeacher[$rowTch["teacherId"]][$i][$j]))
-								{
-									$liberGrupa=true;
-									if(!(empty($weekGroup[$rowGroup["id"]][$i][$j])))
-										{
-											$liberGrupa=false;
-										}
-									if(!empty($weekGroup[$rowGroup["id"]][$i][0]) && $weekGroup[$rowGroup["id"]][$i][44]>6)
-											$liberGrupa=false;
-									if($liberGrupa==true)
+							for($i=1; $i<=5 && $done==false; $i++)
+								for($j=1; $j<=11 && $done==false; $j++)
+									if(empty($weekTeacher[$rowTch["teacherId"]][$i][$j]))
 									{
-										if(empty($weekGroup[$rowGroup["id"]][$i][44]))
-											$weekGroup[$rowGroup["id"]][$i][44]=1;
-										else
-											$weekGroup[$rowGroup["id"]][$i][44]+=1;
-										$done=true;
-									}
-									if($liberGrupa==true){
-										if(empty($weekTeacher[$rowTch["teacherId"]][$i][$j]))
-											$weekTeacher[$rowTch["teacherId"]][$i][$j] = $rowGroup["groupName"];
-										else
-											$weekTeacher[$rowTch["teacherId"]][$i][$j] .= ", " . $rowGroup["groupName"] ;
-
-										$weekGroup[$rowGroup["id"]][$i][$j] = $rowSubj["name"];
-
-										
-										$sqlTchInfo = "SELECT * FROM teachers WHERE id = ".$rowTch["teacherId"]."";
-										$resultTchInfo = $conn->query($sqlTchInfo);
-										if($rowTchInfo = $resultTchInfo -> fetch_assoc()){
-											if($rowSubj["type"]==2){
-												$weekGroup[$rowGroup["id"]][$i][$j] = $rowSubj["name"] . ",Seminar," . $rowTchInfo["name"] . $rowTchInfo["surname"];
+										$liberGrupa=true;
+										if(!(empty($weekGroup[$rowGroup["id"]][$i][$j])))
+											{
+												$liberGrupa=false;
 											}
+										if(!empty($weekGroup[$rowGroup["id"]][$i][0]) && $weekGroup[$rowGroup["id"]][$i][44]>6)
+												$liberGrupa=false;
+										if($liberGrupa==true)
+										{
+											if(empty($weekGroup[$rowGroup["id"]][$i][44]))
+												$weekGroup[$rowGroup["id"]][$i][44]=1;
 											else
-											if($rowSubj["type"]==3){
-												$weekGroup[$rowGroup["id"]][$i][$j] = $rowSubj["name"] . ",Laboratory," . $rowTchInfo["name"]." " . $rowTchInfo["surname"];
+												$weekGroup[$rowGroup["id"]][$i][44]+=1;
+											$done=true;
+										}
+										if($liberGrupa==true){
+											if(empty($weekTeacher[$rowTch["teacherId"]][$i][$j]))
+												$weekTeacher[$rowTch["teacherId"]][$i][$j] = $rowGroup["groupName"];
+											else
+												$weekTeacher[$rowTch["teacherId"]][$i][$j] .= ", " . $rowGroup["groupName"] ;
+
+											$weekGroup[$rowGroup["id"]][$i][$j] = $rowSubj["name"];
+
+											
+											$sqlTchInfo = "SELECT * FROM teachers WHERE id = ".$rowTch["teacherId"]."";
+											$resultTchInfo = $conn->query($sqlTchInfo);
+											if($rowTchInfo = $resultTchInfo -> fetch_assoc()){
+												if($rowSubj["type"]==2){
+													$weekGroup[$rowGroup["id"]][$i][$j] = $rowSubj["name"] . ",Seminar," . $rowTchInfo["name"] . $rowTchInfo["surname"];
+												}
+												else
+												if($rowSubj["type"]==3){
+													$weekGroup[$rowGroup["id"]][$i][$j] = $rowSubj["name"] . ",Laboratory," . $rowTchInfo["name"]." " . $rowTchInfo["surname"];
+												}
 											}
 										}
 									}
-								}
-							}
+						}
 
 					}
 				}
 			}
 		}
 	}
-	$sql = "SELECT * FROM groups";
+	/*$sql = "SELECT * FROM groups";
 	$result = $conn->query($sql);
 	$numberOfGroups = $result->num_rows;
 
 	$sql = "SELECT * FROM teachers";
 	$result = $conn->query($sql);
 	$numberOfTeachers = $result->num_rows;
+
 	$table="";
 	for($i=1; $i<=$numberOfGroups; $i++)
 	{
@@ -475,11 +473,11 @@
 					$sqlInsert="INSERT INTO scheduleteachers (idTeacher, day, startHour, info) VALUES ('".$i."', '".$j."', '".$x."', '".$weekTeacher[$i][$j][$k]."')";
 				else
 					$sqlInsert="INSERT INTO scheduleteachers (idTeacher, day, startHour, info) VALUES ('".$i."', '".$j."', '".$x."', 'free')";
-				var_dump($sqlInsert);
+				//var_dump($sqlInsert);
 				$conn->query($sqlInsert);
 			}
 		}	
-	}
+	}*/
 
 	for($i=1; $i<=6; $i++)
 	{

@@ -5,9 +5,12 @@
 	if(isset($_POST['insertsubject'])){
     $error1 = $error2 = $error3 = $success1 = '';
 		$subject = $conn->real_escape_string($_POST['subject']);
+    $type = $conn->real_escape_string($_POST['type']);
 		$found = false;  
 		if(empty($_POST['subject']))
 			$error1form1 = "*You have to enter a subject!";
+    if(empty($_POST['type']))
+      $error2form1 = "*You have to choose the type of the subject!";
 		if($error1form1 == '' && $error2form1 == ''){
 				$sql = "SELECT name FROM subjects WHERE name = '".$subject."'";
 				$result = $conn->query($sql);
@@ -22,7 +25,7 @@
 
 				if($error1form1 == '' && $error2form1 == '' && $error3form1 == '')
 				{
-					$sql = "INSERT INTO subjects (name) VALUES ('".$subject."')";
+					$sql = "INSERT INTO subjects (name, type) VALUES ('".$subject."', '".$type."')";
 					$conn->query($sql);
 					$success1form1 = "*You have successfully insert a subject!";
 				}
@@ -32,7 +35,6 @@
     $error1form2 = $error2form2 = $error3form2 = $success1form2 = '';
     $name = $conn->real_escape_string($_POST['teacher_name']);
     $surname = $conn->real_escape_string($_POST['teacher_surname']);
-    $subject = $conn->real_escape_string($_POST['teacher_subject']);
     $found = false;  
     if(empty($_POST['teacher_name']))
       $error1form2 = "*You have to enter the teacher's name!";
@@ -158,10 +160,23 @@
   							echo "<p style='color:red'>".$error1form1."</p>" 
   					?>
             <br>
-              <?php 
-                if($error3form1 != '')
-                  echo $error3form1;
-              ?>
+            <label for="type"><b>Select the subject type:</b></label> <br>
+              <select name='type'>
+                <option value="">Choose!</option>
+                <?php
+                  $sql ="SELECT * FROM subjecttypes";
+                  $result = $conn->query($sql);
+                  while($row = $result -> fetch_assoc())
+                  {
+                    echo "<option value='" . $row['id'] . "'>" . $row['name'] . "</option>";
+                  }
+                ?>
+              </select>
+            <br>
+            <?php 
+              if($error3form1 != '')
+                echo $error3form1;
+            ?>
   					<?php 
   						if($error3form1 != '')
   							echo $error3form1;

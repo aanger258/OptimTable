@@ -3,10 +3,12 @@
 	require 'connection.php';
 	if(isset($_POST['login'])){
 		$username = $conn->real_escape_string($_POST['username']);
-		$password   = $conn->real_escape_string($_POST['password']);
+		$password = $conn->real_escape_string($_POST['password']);
+		$groupName = $teacherName = "";
 		if(!empty($_POST['typeOfAccount']))
 			$typeOfAccount = $conn->real_escape_string($_POST['typeOfAccount']);
-		$found = false;  
+		$found = false;
+		$admin = false;  
 		if(empty($_POST['username']))
 			$error1 = '<font color="red">*You have to enter an username!</font><br>';
 		if(empty($_POST['password']))
@@ -15,12 +17,19 @@
 			$error3 = '<font color="red">*You have to choose a type of account!</font><br>';
 		if($error1 == '' && $error2 == '' && $error3 == ''){
 			if($typeOfAccount == "student"){
-				$sql = "SELECT username, password FROM students";
+				$sql = "SELECT * FROM students";
 				$result = $conn->query($sql);
 				if ($result->num_rows > 0) {
 					while($row = $result->fetch_assoc()){
-						if($row['username'] == $username && $row['password'] == md5($password))
+						if($row['username'] == $username && $row['password'] == md5($password)){
 							$found = true;
+							$sqlGroup = "SELECT * FROM groups WHERE id = ".$row['group_name']."";
+							$resultGroup = $conn->query($sqlGroup);
+							while($rowGroup = $resultGroup->fetch_assoc()){
+								$groupName = $rowGroup['GroupName'];
+								
+							}
+						}
 					}
 				}
 				if($found == false)
@@ -33,8 +42,10 @@
 				$result = $conn->query($sql);
 				if ($result->num_rows > 0) {
 					while($row = $result->fetch_assoc()){
-						if($row['username'] == $username && $row['password'] == md5($password))
+						if($row['username'] == $username && $row['password'] == md5($password)){
 							$found = true;
+							$teacherName = $row['id'];
+						}
 					}
 				}
 				if($found == false)
@@ -42,9 +53,22 @@
 				else
 					$success1 = '<font color="green">*You have successfully logged in!</font><br>';
 			}
+			if($username == "admin" && md5($password) == "14732653d5c66bd4357c2d113b9628c9" && $typeOfAccount == "admin"){
+				$admin = true;
+			}
 		}
-		if($error4 == ''){
-			//redirect;
+		if($admin == true){
+			header('Location: adminpage.php');
+		}
+		if($error4 == '' && $error3 == '' && $error2 == '' && $error1 == ''){
+			if($typeOfAccount == "student"){
+				$_SESSION['1'] = $groupName;
+				header('Location: showschedule.php');
+			}
+			if($typeOfAccount == "teacher"){
+				$_SESSION['2'] = $teacherName;
+				header('Location: showschedule.php');
+			}
 		}
 	}
 ?>

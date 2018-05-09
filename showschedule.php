@@ -1,3 +1,4 @@
+<?php require 'connection.php'; ?>
 <!doctype html>
 <html lang="en">
 	<head>
@@ -13,6 +14,10 @@
   	</head>
     <?php include "navbar.php" ?>
     <body>
-    	
+    	<?php 
+    		//$groupName="";
+    		//$groupName=$_SESSION['1'];
+    		//echo "<p>".$groupName."</p>";
+    	?>
     </body>
 </html>
