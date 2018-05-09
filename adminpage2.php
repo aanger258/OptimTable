@@ -1,7 +1,7 @@
 <?php
 	require 'connection.php';
 	$error1form1 = $error2form1 = $error3form1 = $success1form1 = '';
-  $error1form2 = $error2form2 = $error3form2 = $error4form2 = $success1form2 = '';
+  $error1form2 = $error2form2 = $error3form2 = $success1form2 = '';
 	if(isset($_POST['insertsubject'])){
     $error1 = $error2 = $error3 = $success1 = '';
 		$subject = $conn->real_escape_string($_POST['subject']);
@@ -38,8 +38,6 @@
       $error1form2 = "*You have to enter the teacher's name!";
     if(empty($_POST['teacher_surname']))
       $error2form2 = "*You have to enter the teacher's surname!";
-    if(empty($_POST['teacher_subject']))
-      $error4form2 = "*You have to choose the teacher's subject!";
     if($error1form2 == '' ){
         $sql = "SELECT name, surname FROM teachers WHERE name = '".$name."' AND surname = '".$surname."'";
         $result = $conn->query($sql);
@@ -51,13 +49,10 @@
               $error3form2='<font color="red">*This teacher is already in the table</font><br>';
           }
         }
-
-
-
-        if($error1form2 == '' && $error2form2 == '' && $error3form2 == '' && $error4form2 == '')
+        if($error1form2 == '' && $error2form2 == '' && $error3form2 == '')
         {
           $username = strtolower($name) . '.' . strtolower($surname);
-          $sql = "INSERT INTO teachers (username, name, surname, subject) VALUES ('".$username."', '".$name."', '".$surname."', '".$subject."')";
+          $sql = "INSERT INTO teachers (username, name, surname) VALUES ('".$username."', '".$name."', '".$surname."')";
           $conn->query($sql);
           $success1form2 = "*You have successfully inserted a teacher!";
         }
@@ -80,7 +75,7 @@
 
 	    <title>OptimTable</title>
   	</head>
-    <?php include "navbar.php" ?>
+    <?php include "navbar.php"; ?>
   	<body>
   		<div class="container">
         <div class="row">
@@ -98,7 +93,7 @@
               <tbody>
               <?php 
                 $cnt=1;
-                $sql = "SELECT * FROM subjects";
+                $sql = "SELECT DISTINCT name FROM subjects";
                 $result = $conn -> query($sql);
                 while($row = $result -> fetch_assoc()):?>
                     <tr>
@@ -125,14 +120,14 @@
               <tbody>
               <?php 
                 $cnt=1;
-                $sql = "SELECT t.id as idteacher, t.name as teacherName, t.surname, t.subject, s.id, s.name as subjectName FROM teachers t, subjects s WHERE t.subject=s.id";
+                $sql = "SELECT * FROM teachers";
                 $result = $conn -> query($sql);
                 while($row = $result -> fetch_assoc()):?>
                     <tr>
                       <th scope="row"><?php echo $cnt++; ?></th>
-                      <th id="name<?php echo $row["idteacher"];?>"><?php echo $row["teacherName"];?></th>
-                      <th id="surname<?php echo $row["idteacher"];?>"><?php echo $row["surname"];?></th>
-                      <th id="subject<?php echo $row["idteacher"];?>"><?php echo $row["subjectName"];?></th>
+                      <th id="name<?php echo $row["id"];?>"><?php echo $row["name"];?></th>
+                      <th id="surname<?php echo $row["id"];?>"><?php echo $row["surname"];?></th>
+                      <th ><a href="teacherSubjects.php?id=<?php echo $row["id"] . "," . $row["name"] . "," . $row["surname"] ;?>">Show Subjects</a></th>
                     </tr>
                 <?php endwhile;?>
               <tbody>
@@ -193,23 +188,6 @@
             <?php 
               if($error2form2 != '')
                 echo "<p style='color:red'>".$error2form2."</p>" 
-            ?>
-            <label for="teacher"><b>Select theacher's subject:</b></label> <br>
-              <select name='teacher_subject'>
-                <option value="">Choose!</option>
-              <?php
-                $sql ="SELECT * FROM subjects";
-                $result = $conn->query($sql);
-                
-                while($row = $result -> fetch_assoc())
-                {
-                  echo "<option value='" . $row['id'] . "'>" . $row['name'] . "</option>";
-                }
-              ?>
-            </select>
-            <?php
-              if($error4form2 != '')
-                  echo $error4form2;
             ?>
             <br>
             <?php 
