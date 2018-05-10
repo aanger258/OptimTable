@@ -1,6 +1,6 @@
 <?php
 	require 'connection.php';
-	$error1form1 = $error2form1 = $error3form1 = $success1form1 = '';
+	$error1form1 = $error2form1 = $success1form1 = '';
   $error1form2 = $error2form2 = $error3form2 = $success1form2 = '';
 	if(isset($_POST['insertsubject'])){
     $error1 = $error2 = $error3 = $success1 = '';
@@ -11,25 +11,14 @@
 			$error1form1 = "*You have to enter a subject!";
     if(empty($_POST['type']))
       $error2form1 = "*You have to choose the type of the subject!";
-		if($error1form1 == '' && $error2form1 == ''){
-				$sql = "SELECT name FROM subjects WHERE name = '".$subject."'";
-				$result = $conn->query($sql);
-				if(!empty($result))
-				{
-					while($row = $result -> fetch_assoc())
-					{
-						if($row["name"]==$subject)
-							$error3form1='<font color="red">*This name already in use</font><br>';
-					}
-				}
 
-				if($error1form1 == '' && $error2form1 == '' && $error3form1 == '')
-				{
-					$sql = "INSERT INTO subjects (name, type) VALUES ('".$subject."', '".$type."')";
-					$conn->query($sql);
-					$success1form1 = "*You have successfully insert a subject!";
-				}
+		if($error1form1 == '' && $error2form1 == '')
+		{
+			$sql = "INSERT INTO subjects (name, type) VALUES ('".$subject."', '".$type."')";
+			$conn->query($sql);
+			$success1form1 = "*You have successfully insert a subject!";
 		}
+		
 	}
   if(isset($_POST['insertteacher'])){
     $error1form2 = $error2form2 = $error3form2 = $success1form2 = '';
@@ -175,13 +164,7 @@
                 ?>
               </select>
             <br>
-            <?php 
-              if($error3form1 != '')
-                echo $error3form1;
-            ?>
   					<?php 
-  						if($error3form1 != '')
-  							echo $error3form1;
   						if($success1form1 != '')
   							echo $success1form1;
   					?>

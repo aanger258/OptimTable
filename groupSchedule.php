@@ -23,7 +23,7 @@
           </div>
           <div class="col-md-8">
             <br>
-            <h3 style="text-align:center;">Schedule of the <?php echo $get[1];?></h3> <br>
+            <h3 style="text-align:center;">Schedule of the <?php echo $get[1];?> Group</h3> <br>
           </div>
           <div class="col-md-2">    
           </div>

@@ -387,8 +387,8 @@
 											}
 											else
 											if($rowSubj["type"]==3){
-												$weekGroup[$rowGroup["id"]][$i][$j] = $rowSubj["name"] . ",Laboratory," . $rowTchInfo["name"]." " . $rowTchInfo["surname"];
-												$weekGroup[$rowGroup["id"]][$i][$j+1] = $rowSubj["name"] . ",Laboratory," .  $rowTchInfo["name"]." " . $rowTchInfo["surname"];
+												$weekGroup[$rowGroup["id"]][$i][$j] = $rowSubj["name"] . ",Laboratory," . $rowTchInfo["name"] . " " . $rowTchInfo["surname"];
+												$weekGroup[$rowGroup["id"]][$i][$j+1] = $rowSubj["name"] . ",Laboratory," . $rowTchInfo["name"] . " " . $rowTchInfo["surname"];
 											}
 										}
 									}
@@ -444,11 +444,11 @@
 											$resultTchInfo = $conn->query($sqlTchInfo);
 											if($rowTchInfo = $resultTchInfo -> fetch_assoc()){
 												if($rowSubj["type"]==2){
-													$weekGroup[$rowGroup["id"]][$i][$j] = $rowSubj["name"] . ",Seminar," . $rowTchInfo["name"] . $rowTchInfo["surname"];
+													$weekGroup[$rowGroup["id"]][$i][$j] = $rowSubj["name"] . ",Seminar," . $rowTchInfo["name"] . " " . $rowTchInfo["surname"];
 												}
 												else
 												if($rowSubj["type"]==3){
-													$weekGroup[$rowGroup["id"]][$i][$j] = $rowSubj["name"] . ",Laboratory," . $rowTchInfo["name"]." " . $rowTchInfo["surname"];
+													$weekGroup[$rowGroup["id"]][$i][$j] = $rowSubj["name"] . ",Laboratory," . $rowTchInfo["name"] . " " . $rowTchInfo["surname"];
 												}
 											}
 										}
