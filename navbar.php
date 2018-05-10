@@ -13,9 +13,6 @@
           <a class="nav-link" href="adminpage2.php">Subjects and teachers</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="showschedule.php">Show tables</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="generateschedule.php">Generate schedule</a>
         </li>
       </ul>
