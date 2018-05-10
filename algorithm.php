@@ -436,7 +436,7 @@
 			}
 		}
 	}
-	/*$sql = "SELECT * FROM groups";
+	$sql = "SELECT * FROM groups";
 	$result = $conn->query($sql);
 	$numberOfGroups = $result->num_rows;
 
@@ -461,7 +461,7 @@
 			}
 		}	
 	}
-
+/*
 	for($i=1; $i<=$numberOfTeachers; $i++)
 	{
 		for($j=1; $j<=5; $j++)
@@ -477,8 +477,8 @@
 				$conn->query($sqlInsert);
 			}
 		}	
-	}*/
-
+	}
+	*/
 	for($i=1; $i<=6; $i++)
 	{
 		$table = "<table class=\"table\">";

@@ -12,12 +12,10 @@
 
 	    <title>OptimTable</title>
   	</head>
-    <?php include "navbar.php" ?>
+    <?php include "navbar.php"; ?>
     <body>
     	<?php 
-    		//$groupName="";
-    		//$groupName=$_SESSION['1'];
-    		//echo "<p>".$groupName."</p>";
+    		$variabila=$_SESSION['student'];
     	?>
     </body>
 </html>

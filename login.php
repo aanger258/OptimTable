@@ -17,7 +17,7 @@
 			$error3 = '<font color="red">*You have to choose a type of account!</font><br>';
 		if($error1 == '' && $error2 == '' && $error3 == ''){
 			if($typeOfAccount == "student"){
-				$sql = "SELECT * FROM students";
+				$sql = "SELECT * FROM students ";
 				$result = $conn->query($sql);
 				if ($result->num_rows > 0) {
 					while($row = $result->fetch_assoc()){
@@ -26,8 +26,8 @@
 							$sqlGroup = "SELECT * FROM groups WHERE id = ".$row['group_name']."";
 							$resultGroup = $conn->query($sqlGroup);
 							while($rowGroup = $resultGroup->fetch_assoc()){
-								$groupName = $rowGroup['GroupName'];
-								
+								$groupName = $rowGroup['groupName'];
+								$groupId =  $rowGroup['id'];
 							}
 						}
 					}
@@ -35,7 +35,11 @@
 				if($found == false)
 					$error4 = '<font color="red">*The data you have introduced is wrong!</font><br>';
 				else
+				{
 					$success1 = '<font color="green">*You have successfully logged in!</font><br>';
+					$_SESSION['student'] = $variabila;
+					
+				}
 			}
 			if($typeOfAccount == "teacher"){
 				$sql = "SELECT * FROM teachers";
@@ -51,7 +55,10 @@
 				if($found == false)
 					$error4 = '<font color="red">*The data you have introduced is wrong!</font><br>';
 				else
+				{
 					$success1 = '<font color="green">*You have successfully logged in!</font><br>';
+					
+				}
 			}
 			if($username == "admin" && md5($password) == "14732653d5c66bd4357c2d113b9628c9" && $typeOfAccount == "admin"){
 				$admin = true;
@@ -63,7 +70,7 @@
 		if($error4 == '' && $error3 == '' && $error2 == '' && $error1 == ''){
 			if($typeOfAccount == "student"){
 				$_SESSION['1'] = $groupName;
-				header('Location: showschedule.php');
+				header('Location: groupSchedule.php?id=' . $groupId . ',' . $groupName.'');
 			}
 			if($typeOfAccount == "teacher"){
 				$_SESSION['2'] = $teacherName;

@@ -104,10 +104,10 @@
                       <th id="name<?php echo $row["idgrupa"];?>"><?php echo $row["groupName"];?></th>
                       <th id="specialization<?php echo $row["idgrupa"];?>"><?php echo $row["specialization"]; ?></th>
                       <th ><a href="students.php?id=<?php echo $row["idgrupa"] . "," . $row["groupName"] . "," . $row["specialization"] ;?>">Show students</a></th>
-                      <th ><a href="groupSchedule.php?id=<?php echo $row["idgrupa"] . "," . $row["groupName"] . "," . $row["specialization"] ;?>">Edit scheduele</a></th>
+                      <th ><a href="groupSchedule.php?id=<?php echo $row["idgrupa"] . "," . $row["groupName"] . "," . $row["specialization"] ;?>">Show schedule</a></th>
                     </tr>
                 <?php endwhile;?>
-              <tbody>
+              </tbody>
             </table>
             </form>
           </div>
