@@ -23,7 +23,7 @@
           </div>
           <div class="col-md-8">
             <br>
-            <h3 style="text-align:center;">Schedule of the <?php echo $get[1];?></h3> <br>
+            <h3 style="text-align:center;">Schedule of <?php echo $get[1] . " " .$get[2];?></h3> <br>
           </div>
           <div class="col-md-2">    
           </div>
@@ -56,7 +56,7 @@
                   $day=1;
                   while($day<6):?>
                   <?php
-                    $sql = "SELECT * FROM schedulegroups WHERE groupName = '".$get[0]."' AND day = '".$day."' ";
+                    $sql = "SELECT * FROM scheduleteachers WHERE idTeacher = '".$get[0]."' AND day = '".$day."' ";
                     //var_dump($sql);
                     $result = $conn->query($sql);
                     ?>

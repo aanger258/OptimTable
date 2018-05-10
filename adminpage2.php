@@ -117,6 +117,7 @@
                   <th>Name</th>
                   <th>Surname</th>
                   <th>Subject</th>
+                  <th>Schedule</th>
                 </tr>
               </thead>
               <tbody>
@@ -130,6 +131,7 @@
                       <th id="name<?php echo $row["id"];?>"><?php echo $row["name"];?></th>
                       <th id="surname<?php echo $row["id"];?>"><?php echo $row["surname"];?></th>
                       <th ><a href="teacherSubjects.php?id=<?php echo $row["id"] . "," . $row["name"] . "," . $row["surname"] ;?>">Show Subjects</a></th>
+                      <th ><a href="teacherSchedule.php?id=<?php echo $row["id"] . "," . $row["name"] . "," . $row["surname"] ;?>">Show schedule</a></th>
                     </tr>
                 <?php endwhile;?>
               <tbody>

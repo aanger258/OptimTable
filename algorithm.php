@@ -1,13 +1,14 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="css/bootstrap.css">
-	<link rel="stylesheet" href="css/styles.css">
- </html>
- <?php
-	require ("connection.php");
+<?php
+	function generateSchedule(){
+	$host="localhost";
+    $user="root";
+    $password="";
+    $mydb="optimtable";
+    
+    $conn = new mysqli($host, $user, $password,$mydb);
+
+    if ($conn->connect_error)
+        die("Connection failed: " . $conn->connect_error);
 	$weekTeacher =array(
 		array(
 			array("","","","","","","","","","","","","",""),
@@ -166,7 +167,11 @@
 										}
 										$done=true;
 									}
-
+									if($liberLaToateGrupele==true)
+									{
+										$weekTeacher[$rowTch["teacherId"]][$i][$j] .= "," . $rowSubj["name"] . ",Course";
+										$weekTeacher[$rowTch["teacherId"]][$i][$j+1] .= "," . $rowSubj["name"] . ",Course";
+									}
 								}
 					}
 					if($x == 3)
@@ -236,7 +241,12 @@
 											$weekGroup[$rowGroup["id"]][$i][$j+2] = $rowSubj["name"] . ",Course," .  $rowTchInfo["name"]." " . $rowTchInfo["surname"];
 										}
 										$done=true;
-										
+									}
+									if($liberLaToateGrupele==true)
+									{
+										$weekTeacher[$rowTch["teacherId"]][$i][$j] .= "," . $rowSubj["name"] . ",Course";
+										$weekTeacher[$rowTch["teacherId"]][$i][$j+1] .= "," . $rowSubj["name"] . ",Course";
+										$weekTeacher[$rowTch["teacherId"]][$i][$j+2] .= "," . $rowSubj["name"] . ",Course";
 									}
 
 								}
@@ -298,6 +308,10 @@
 											$weekGroup[$rowGroup["id"]][$i][$j] = $rowSubj["name"]. ",Course," .  $rowTchInfo["name"] . " " . $rowTchInfo["surname"];
 										}
 										$done=true;
+									}
+									if($liberLaToateGrupele==true)
+									{
+										$weekTeacher[$rowTch["teacherId"]][$i][$j] .= "," . $rowSubj["name"] . ",Course";
 									}
 								}
 					}
@@ -378,6 +392,16 @@
 											}
 										}
 									}
+									if($liberGrupa==true && $rowSubj["type"]==2)
+									{
+										$weekTeacher[$rowTch["teacherId"]][$i][$j] .= "," . $rowSubj["name"] .  ",Seminar";
+										$weekTeacher[$rowTch["teacherId"]][$i][$j+1] .= "," . $rowSubj["name"] . ",Seminar";
+									}
+									if($liberGrupa==true && $rowSubj["type"]==3)
+									{
+										$weekTeacher[$rowTch["teacherId"]][$i][$j] .= "," . $rowSubj["name"] . ",Laboratory";
+										$weekTeacher[$rowTch["teacherId"]][$i][$j+1] .= "," . $rowSubj["name"] . ",Laboratory";
+									}
 								}
 							}
 					}
@@ -428,6 +452,15 @@
 												}
 											}
 										}
+
+										if($liberGrupa==true && $rowSubj["type"]==2)
+										{
+											$weekTeacher[$rowTch["teacherId"]][$i][$j] .="," . $rowSubj["name"] .  ",Seminar";	
+										}
+										if($liberGrupa==true && $rowSubj["type"]==3)
+										{
+											$weekTeacher[$rowTch["teacherId"]][$i][$j] .="," . $rowSubj["name"] .  ",Laboratory";
+										}
 									}
 						}
 
@@ -443,14 +476,14 @@
 	$sql = "SELECT * FROM teachers";
 	$result = $conn->query($sql);
 	$numberOfTeachers = $result->num_rows;
-
 	$table="";
+	
 	for($i=1; $i<=$numberOfGroups; $i++)
 	{
 		for($j=1; $j<=5; $j++)
 		{
 			$table .= "<tr>";
-			for($k=1; $k<=10; $k++){
+			for($k=1; $k<=12; $k++){
 				$x=$k+7;
 				if(!empty($weekGroup[$i][$j][$k]))
 					$sqlInsert="INSERT INTO schedulegroups (groupName, day, startHour, info) VALUES ('".$i."', '".$j."', '".$x."', '".$weekGroup[$i][$j][$k]."')";
@@ -461,13 +494,13 @@
 			}
 		}	
 	}
-/*
+
 	for($i=1; $i<=$numberOfTeachers; $i++)
 	{
 		for($j=1; $j<=5; $j++)
 		{
 			$table .= "<tr>";
-			for($k=1; $k<=10; $k++){
+			for($k=1; $k<=12; $k++){
 				$x=$k+7;
 				if(!empty($weekTeacher[$i][$j][$k]))
 					$sqlInsert="INSERT INTO scheduleteachers (idTeacher, day, startHour, info) VALUES ('".$i."', '".$j."', '".$x."', '".$weekTeacher[$i][$j][$k]."')";
@@ -478,7 +511,7 @@
 			}
 		}	
 	}
-	*/
+
 	for($i=1; $i<=6; $i++)
 	{
 		$table = "<table class=\"table\">";
@@ -527,4 +560,5 @@
 		echo "<br>";
 		echo "<br>";		
 	}
+}
 ?>

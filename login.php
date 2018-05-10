@@ -48,7 +48,9 @@
 					while($row = $result->fetch_assoc()){
 						if($row['username'] == $username && $row['password'] == md5($password)){
 							$found = true;
-							$teacherName = $row['id'];
+							$teacherId = $row['id'];
+							$teacherName = $row['name'];
+							$teacherSurname = $row['surname'];
 						}
 					}
 				}
@@ -69,12 +71,10 @@
 		}
 		if($error4 == '' && $error3 == '' && $error2 == '' && $error1 == ''){
 			if($typeOfAccount == "student"){
-				$_SESSION['1'] = $groupName;
 				header('Location: groupSchedule.php?id=' . $groupId . ',' . $groupName.'');
 			}
 			if($typeOfAccount == "teacher"){
-				$_SESSION['2'] = $teacherName;
-				header('Location: showschedule.php');
+				header('Location: teacherSchedule.php?id=' . $teacherId . ',' . $teacherName . ',' . $teacherSurname . '');
 			}
 		}
 	}
