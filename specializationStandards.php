@@ -1,29 +1,45 @@
 <?php
   require 'connection.php';
   $get = explode("," , $_GET["id"]);
-  $error1 = $error2 = $error3 = $success1 = '';
-  $id = '';
+  $error1 = $error2 = $error3 = $error4 = $success = '';
   if(isset($_POST['insertstandard'])){
-    $hpw = $conn->real_escape_string($_POST['hpw']);
     $subject = $conn->real_escape_string($_POST['standard_subject']);
+    $type = $conn->real_escape_string($_POST['standard_subject_type']);
+    $hpw = $conn->real_escape_string($_POST['hpw']);
+    $subjectId = "";
     $found = false;  
-    if(empty($_POST['hpw']))
-      $error1 = "*You have to enter a the number of hours!";
     if(empty($_POST['standard_subject']))
-      $error2 = "*You have to choose a subject!";
-    if($error1 == '' && $error2 == ''){
-        $sql = "SELECT * FROM standards WHERE subjectId = '".$subject."'";
+      $error1 = "*You have to choose a subject!";
+    if(empty($_POST['standard_subject_type']))
+      $error2 = "*You have to choose the type of subject!";
+    if(empty($_POST['hpw']))
+      $error3 = "*You have to choose the number of hours per week!";
+    if($error1 == '' && $error2 == '' && $error3 == ''){
+        $sql = "SELECT * FROM subjects WHERE name = '".$subject."' AND type = '".$type."'";
         $result = $conn->query($sql);
         if(!empty($result))
-          $error3='<font color="red">*This subject was already added!</font><br>';
-        if($error1 == '' && $error2 == '' && $error3 == '')
         {
-          $sql = "INSERT INTO standards (specializationId, subjectId, hoursPerWeek) VALUES ('".$get[0]."' ,'".$subject."', '".$hpw."')";
+          while($row = $result -> fetch_assoc())
+          {
+            $sqlstd = "SELECT * FROM standards";
+            $resultstd = $conn->query($sqlstd);
+            while($rowstd = $resultstd -> fetch_assoc())
+            if($rowstd["specializationId"]==$get[0] && $rowstd["subjectId"]==$row["id"])
+              $error4='<font color="red">*This standard already has this subject!</font><br>';
+            else{
+              $subjectId = $row["id"];
+            }
+          }
+        }
+
+        if($error1 == '' && $error2 == '' && $error3 == '' && $error4 == '')
+        {
+          $sql = "INSERT INTO standards (specializationId, subjectId, hoursPerWeek) VALUES ('".$get[0]."','".$subjectId."','".$hpw."')";
           $conn->query($sql);
-          $success1 = "*You have successfully insert a subject!";
+          $success = "*You have successfully inserted a subject to a teacher!";
         }
     }
-  }
+  } 
 ?>
 <!doctype html>
 <html lang="en">
@@ -61,18 +77,25 @@
                 <tr>
                   <th>#</th>
                   <th>Subject</th>
+                  <th>Subject Type</th>
                   <th>Hours per week</th>
                 </tr>
               </thead>
               <tbody>
               <?php 
                 $cnt=1;
-                $sql = "SELECT st.subjectId, st.specializationId, st.hoursPerWeek, su.id, su.name FROM standards st, subjects su WHERE st.specializationId = ".$get[0]." AND su.id = st.subjectId";
+                $sql = "SELECT st.subjectId, st.specializationId, st.hoursPerWeek, su.id, su.name, su.type FROM standards st, subjects su WHERE st.specializationId = ".$get[0]." AND su.id = st.subjectId";
                 $result = $conn -> query($sql);
                 while($row = $result -> fetch_assoc()):?>
                     <tr>
                       <th scope="row"><?php echo $cnt++; ?></th>
                       <th id="subject<?php echo $row["id"];?>"><?php echo $row["name"];?></th>
+                      <?php
+                        $sqlsbjt = "SELECT * FROM subjecttypes WHERE id = ".$row["type"]."";
+                        $resultsbjt = $conn -> query($sqlsbjt);
+                        if($rowsbjt = $resultsbjt -> fetch_assoc()):?>
+                      <th id="type<?php echo $rowsbjt["name"];?>"><?php echo $rowsbjt["name"];?></th>
+                        <?php endif;?>
                       <th id="hpw<?php echo $row["hoursPerWeek"];?>"><?php echo $row["hoursPerWeek"];?></th>
                     </tr>
                 <?php endwhile;?>
@@ -89,9 +112,26 @@
               <select name='standard_subject'>
                 <option value="">Choose!</option>
                 <?php
-                  $sql ="SELECT * FROM subjects";
+                  $sql ="SELECT DISTINCT name FROM subjects";
                   $result = $conn->query($sql);
-                  
+                  while($row = $result -> fetch_assoc())
+                  {
+                    echo "<option value='" . $row['name'] . "'>" . $row['name'] . "</option>";
+                  }
+                ?>
+                </select>
+                <?php 
+                  if($error1 != '')
+                    echo $error1;
+                ?>
+                <br>
+                <br>
+                <label for="standard"><b>Select subject's type:</b></label> <br>
+                <select name='standard_subject_type'>
+                <option value="">Choose!</option>
+                <?php
+                  $sql ="SELECT * FROM subjecttypes";
+                  $result = $conn->query($sql);
                   while($row = $result -> fetch_assoc())
                   {
                     echo "<option value='" . $row['id'] . "'>" . $row['name'] . "</option>";
@@ -100,23 +140,23 @@
               </select>
                 <?php 
                   if($error2 != '')
-                    echo $error2;
+                    echo "<br>".$error2;
                 ?>
                 <br>
                 <br>
                 <label for="subject"><b>Insert hours per week</b></label>
                 <input class="form-control" type="text" name="hpw" placeholder="Hours per Week">
-              <?php 
-                if($error1 != '')
-                  echo "<p style='color:red'>".$error1."</p>" 
-              ?>
+                <?php 
+                  if($error3 != '')
+                    echo "<p style='color:red'>".$error3."</p>" 
+                ?>
                 <br>
-              <?php 
-                if($error3 != '')
-                  echo $error3;
-                if($success1 != '')
-                  echo $success1;
-              ?>
+                <?php 
+                  if($error4 != '')
+                    echo $error4;
+                  if($success != '')
+                    echo $success;
+                ?>
               <br>
               <button name="insertstandard" class="btn btn-primary">Insert</button>
           </form> 
