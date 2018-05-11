@@ -164,7 +164,7 @@
   							echo "<p style='color:red'>".$error1form1."</p>" 
   					?>
   					<label for="specialization"><b>Select the group specialization:</b></label> <br>
-              <select name='specialization'>
+              <select name='specialization' class="form-control form-control-sm">
                 <option value="">Choose!</option>
               <?php
                 $sql ="SELECT * FROM specializations";
@@ -215,6 +215,6 @@
   			</div>
   		</div>
     </div>
-
+    <?php include "footer.php"; ?>
   	</body>
 </html>

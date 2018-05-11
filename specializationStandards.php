@@ -109,7 +109,7 @@
               
               <br>
               <label for="standard"><b>Select standard's subject:</b></label> <br>
-              <select name='standard_subject'>
+              <select name='standard_subject' class="form-control form-control-sm">
                 <option value="">Choose!</option>
                 <?php
                   $sql ="SELECT DISTINCT name FROM subjects";
@@ -127,7 +127,7 @@
                 <br>
                 <br>
                 <label for="standard"><b>Select subject's type:</b></label> <br>
-                <select name='standard_subject_type'>
+                <select name='standard_subject_type' class="form-control form-control-sm">
                 <option value="">Choose!</option>
                 <?php
                   $sql ="SELECT * FROM subjecttypes";

@@ -113,7 +113,7 @@
             <form method="POST"  class="form form-login">
               <h3 style="text-align:center;"> Add teacher's subject and type </h3>
               <label for="subject"><b>Select the teacher's subject:</b></label> <br>
-                <select name='subject'>
+                <select name='subject' class="form-control form-control-sm">
                   <option value="">Choose!</option>
                 <?php
                   $sql ="SELECT DISTINCT name FROM subjects";
@@ -131,7 +131,7 @@
                 ?>
               <br>
               <label for="type"><b>Select the subject type:</b></label> <br>
-                <select name='type'>
+                <select name='type' class="form-control form-control-sm">
                   <option value="">Choose!</option>
                 <?php
                   $sql ="SELECT * FROM subjecttypes";

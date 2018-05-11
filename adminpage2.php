@@ -152,7 +152,7 @@
   					?>
             <br>
             <label for="type"><b>Select the subject type:</b></label> <br>
-              <select name='type'>
+              <select name='type' class="form-control form-control-sm">
                 <option value="">Choose!</option>
                 <?php
                   $sql ="SELECT * FROM subjecttypes";
@@ -203,6 +203,6 @@
   			</div>
   		</div>
     </div>
-
+    <?php include "footer.php"; ?>
   	</body>
 </html>
