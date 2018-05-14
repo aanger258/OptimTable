@@ -43,11 +43,10 @@
 			echo "<br><form method=\"POST\" style=\"text-align: center\"><button  name=\"newsch\" class=\"btn btn-primary\">Empty tables for new schedule</button></form></div><div class=\"col-md-3\"></div></div></div>";
 		}
 		elseif($result1->num_rows==0 && $result2->num_rows==0){
-			echo "<h1 style=\"text-align: center\">The schedule was created</h1>";
+			echo "<h1 style=\"text-align: center\">The schedule was created!</h1>";
 			generateSchedule();
 		}
 
   	?>
-    	
     </body>
 </html>
